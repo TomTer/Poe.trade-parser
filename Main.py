@@ -80,21 +80,36 @@ print("Starting to parse")
 
 working = True
 iteration = 0
-if not Settings.use_multithreading():
-    # No multithreading
-    print("No multithreading")
-    while working:
-        position = \
+threads_list = [None] * Settings.items_check_threads()
+
+while working:
+    position_lowest_timestamp = \
             Libs.get_poe_trade_main_lowest_timestamp(poe_trade_main_handler_classes_list)
+
+    if not Settings.use_multithreading():
+        # No multithreading
         print("Iteration: {iteration}, class position: {position}".format(
-            iteration=iteration, position=position))
-        if position is not None:
-            poe_trade_main_handler_classes_list[position].start_checking()
+            iteration=iteration, position=position_lowest_timestamp))
+        if position_lowest_timestamp is not None:
+            poe_trade_main_handler_classes_list[position_lowest_timestamp].start_checking()
         iteration += 1
         time.sleep(Settings.main_thread_sleep_time())
-else:
-    # Using multithreading
-    pass
+
+    else:
+        # Using multithreading
+        free_thread_position = Libs.get_free_thread(threads_list)
+
+        if position_lowest_timestamp is not None and free_thread_position is not None:
+            print("Starting thread. Position: {pos}".format(pos=free_thread_position))
+            threads_list[free_thread_position] = threading.Thread(
+                target=poe_trade_main_handler_classes_list[position_lowest_timestamp].start_checking
+            )
+            threads_list[free_thread_position].start()
+        else:
+            print("No free threads. Waiting {wait_time} secs".format(
+                wait_time=Settings.main_thread_sleep_time()))
+            time.sleep(Settings.main_thread_sleep_time())
+
 
 # DEBUG
 print("\nMain thread ends. Total time: {time:0.6f}".format(time=(time.time() - start_time)))

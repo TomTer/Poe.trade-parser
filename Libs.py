@@ -52,3 +52,11 @@ def get_poe_trade_main_lowest_timestamp(
             return position
 
     return None
+
+
+def get_free_thread(thread_list):
+    for position in range(0, len(thread_list)):
+        if thread_list[position] is None or not thread_list[position].isAlive():
+            return position
+
+    return None
