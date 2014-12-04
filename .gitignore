@@ -1,0 +1,10 @@
+# Ignore PyCharm settings
+.idea
+
+# Ignore test results
+found_items.*
+
+# Ignore python compiled files
+__pycache__
+**/__pycache__
+

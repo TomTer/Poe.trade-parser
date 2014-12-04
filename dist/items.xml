@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<items>
+
+    <item>
+        <league>Standard</league>
+        <name>Cast on Critical Strike</name>
+    </item>
+
+    <item>
+        <league>Standard</league>
+        <name>Multistrike</name>
+        <q_min>10</q_min>
+        <q_max>16</q_max>
+        <buyout>x</buyout>
+    </item>
+
+    <item>
+        <league>Standard</league>
+        <link_min>6</link_min>
+        <mods>
+            <mod>
+                <modname>+1 maximum Power Charge</modname>
+            </mod>
+            <mod>
+                <modname>#% increased Critical Strike Chance</modname>
+                <modmin>30</modmin>
+            </mod>
+        </mods>
+    </item>
+
+</items>
