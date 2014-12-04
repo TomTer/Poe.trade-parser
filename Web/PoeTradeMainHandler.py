@@ -41,7 +41,7 @@ class PoeTradeMainHandler():
         items_dict = self.from_item_xml_data()
 
         if items_dict:
-            for item_tag in items_dict:
+            for item_tag in sorted(items_dict):
                 string_for_file += "{tag}: {value}\n".format(tag=item_tag,
                                                              value=items_dict[item_tag])
             mods = self.item_xml.find("mods")
@@ -76,7 +76,7 @@ class PoeTradeMainHandler():
         if parsed_item_container_dict:
             string_for_file_writing = self.get_string_for_file_writing()
             string_for_file_writing += ">>>> From Poe.trade <<<<\n"
-            for item_container_tag in parsed_item_container_dict:
+            for item_container_tag in sorted(parsed_item_container_dict):
                 value = parsed_item_container_dict[item_container_tag]
                 string_for_file_writing += "{item_cont}: {value}\n".format(
                     item_cont=item_container_tag, value=value)
